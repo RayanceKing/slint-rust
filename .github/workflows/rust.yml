@@ -11,9 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # 基础矩阵：独立的基础变量（只能是基本类型）
         os: [ubuntu-latest, macos-latest, windows-latest]
-        # 通过 include 组合 os 和 target 的关系
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
@@ -55,7 +53,7 @@ jobs:
           args: --release --target ${{ matrix.target }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 升级到 v4
         with:
           name: ${{ matrix.target }}-binary
           path: target/${{ matrix.target }}/release/
@@ -87,7 +85,7 @@ jobs:
           args: --release --target aarch64-linux-android
 
       - name: Upload Android artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 升级到 v4
         with:
           name: android-binary
           path: target/aarch64-linux-android/release/
